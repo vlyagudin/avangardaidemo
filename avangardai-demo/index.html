@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AvangardAI Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 30%, #1e293b 70%, #0f172a 100%);
+            min-height: 100vh;
+            color: #1a1a1a;
+        }
+
+        /* LOGIN PAGE */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 30%, #1e293b 70%, #0f172a 100%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .login-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 60px 50px;
+            border-radius: 24px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-box h1 {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .login-box p {
+            text-align: center;
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #334155;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: #fff;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 12px;
+            text-align: center;
+            display: none;
+            padding: 10px;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 8px;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .main-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 24px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .header-credentials {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .credential-item {
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .credential-item strong {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        /* GRID */
+        .products-grid {
+            display: grid;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Mobile: 1 column */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tablet: 2 columns */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Desktop: 3 columns */
+        @media (min-width: 1025px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            /* 5th card spans full width on desktop */
+            .product-card:nth-child(5) {
+                grid-column: 1 / -1;
+                max-width: 100%;
+            }
+        }
+
+        /* CARD */
+        .product-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 20px;
+            padding: 36px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            min-height: 480px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(37, 99, 235, 0.15);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            font-size: 56px;
+            margin-bottom: 24px;
+            display: inline-block;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .card-description {
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            flex-grow: 1;
+        }
+
+        .card-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .card-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+        }
+
+        .card-button:active {
+            transform: translateY(0);
+        }
+
+        .card-button.secondary {
+            background: rgba(37, 99, 235, 0.08);
+            color: #2563eb;
+            border: 2px solid rgba(37, 99, 235, 0.2);
+            box-shadow: none;
+        }
+
+        .card-button.secondary:hover {
+            background: rgba(37, 99, 235, 0.15);
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .credentials-small {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: auto;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            padding-bottom: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            padding: 50px 40px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #e2e8f0;
+        }
+
+        .footer-contact {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+        }
+
+        .footer-contact a {
+            color: #60a5fa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .footer-contact a:hover {
+            color: #93c5fd;
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            color: #475569;
+            margin: 0 12px;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 30px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .header-title {
+                font-size: 24px;
+            }
+
+            .header-credentials {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .credential-item {
+                font-size: 13px;
+            }
+
+            .logout-btn {
+                width: 100%;
+            }
+
+            .login-box {
+                padding: 40px 30px;
+                margin: 20px;
+            }
+
+            .login-box h1 {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 26px;
+                margin-bottom: 40px;
+            }
+
+            .product-card {
+                padding: 28px;
+                min-height: auto;
+            }
+
+            .card-icon {
+                font-size: 48px;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+        }
+
+        /* ANIMATIONS */
+        .product-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <!-- LOGIN PAGE -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <h1>AvangardAI</h1>
+            <p>Введите пароль для доступа к демо</p>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" placeholder="Введите пароль" required autofocus>
+                </div>
+                <button type="submit" class="login-btn">Войти</button>
+                <div class="error-message" id="errorMessage">Неверный пароль. Попробуйте снова.</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+        <!-- HEADER -->
+        <header>
+            <div class="header-content">
+                <h1 class="header-title">AvangardAI Demo</h1>
+                <div class="header-credentials">
+                    <div class="credential-item">
+                        Логин: <strong>demo@test.com</strong>
+                    </div>
+                    <div class="credential-item">
+                        Пароль: <strong>demo123</strong>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">Выйти</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN CONTAINER -->
+        <div class="container">
+            <h2 class="section-title">Наши продукты</h2>
+
+            <div class="products-grid">
+                <!-- CARD 1: AI Тренажер -->
+                <div class="product-card">
+                    <span class="card-icon">🎯</span>
+                    <h3 class="card-title">AI Тренажер</h3>
+                    <p class="card-description">Платформа для тренировки и оценки навыков продаж с помощью ИИ-симуляций. Продавцы тренируются с ИИ-аватаром, который моделирует реальные сценарии звонков, переговоров и работы с возражениями.</p>
+                    <div class="credentials-small">
+                        Логин: demo@test.com | Пароль: demo123
+                    </div>
+                    <div class="card-buttons">
+                        <a href="https://aitrainer.avangardai.ru" target="_blank" class="card-button">Перейти на демо</a>
+                    </div>
+                </div>
+
+                <!-- CARD 2: AI Асессор -->
+                <div class="product-card">
+                    <span class="card-icon">📊</span>
+                    <h3 class="card-title">AI Асессор (MostAI)</h3>
+                    <p class="card-description">Платформа для оценки hard- и soft-компетенций менеджеров по продукту с помощью ИИ. Анализирует профессиональные и личные навыки, формирует отчёты с рекомендациями и зонами для развития.</p>
+                    <div class="card-buttons">
+                        <a href="https://demo-analytics.avangardai.ru" target="_blank" class="card-button">Перейти на демо</a>
+                    </div>
+                </div>
+
+                <!-- CARD 3: AI Аналитик -->
+                <div class="product-card">
+                    <span class="card-icon">💬</span>
+                    <h3 class="card-title">AI Аналитик</h3>
+                    <p class="card-description">Персональный ChatGPT по любым вопросам коммерческого департамента</p>
+                    <div class="card-buttons">
+                        <a href="https://demo-analytics.avangardai.ru/reports/generate" target="_blank" class="card-button">Перейти на демо</a>
+                    </div>
+                </div>
+
+                <!-- CARD 4: AI Суфлер -->
+                <div class="product-card">
+                    <span class="card-icon">🎧</span>
+                    <h3 class="card-title">AI Суфлер</h3>
+                    <p class="card-description">Виджет, анализирующий опыт прошлых звонков, интонацию и слова клиента и дающий релевантные подсказки во время звонка менеджера с клиентом</p>
+                    <div class="card-buttons">
+                        <a href="https://drive.google.com/file/d/1SopTmm4WZizRdBSGtN6cSg4H5KCx8rfF/view?usp=sharing" target="_blank" class="card-button">Смотреть обзор</a>
+                    </div>
+                </div>
+
+                <!-- CARD 5: Автоматизация -->
+                <div class="product-card">
+                    <span class="card-icon">📞</span>
+                    <h3 class="card-title">Автоматизация входящих/исходящих звонков</h3>
+                    <p class="card-description">Автоматизация обзвонов входящей и исходящей линий с интеграцией в CRM</p>
+                    <div class="card-buttons">
+                        <a href="https://drive.google.com/file/d/1JUKQqakoHJnl6O2DkqCnHd265yaKLYTf/view?usp=drive_link" target="_blank" class="card-button">Обзор №1</a>
+                        <a href="https://drive.google.com/file/d/1F8S4SaQ_bzSYM82OTJGuBxS6KnpXE7iN/view?usp=drive_link" target="_blank" class="card-button secondary">Обзор №2</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-content">
+                <h3 class="footer-title">Свяжитесь с нами</h3>
+                <div class="footer-contact">
+                    Email: <a href="mailto:info@avangardai.ru">info@avangardai.ru</a>
+                    <span class="footer-divider">|</span>
+                    Сайт: <a href="https://avangardai.ru" target="_blank">avangardai.ru</a>
+                </div>
+                <p class="footer-copyright">© 2025 AvangardAI. Все права защищены.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const PASSWORD = 'demo123';
+        const STORAGE_KEY = 'avangardai_logged_in';
+        
+        const loginContainer = document.getElementById('loginContainer');
+        const mainContent = document.getElementById('mainContent');
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Проверка авторизации при загрузке
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem(STORAGE_KEY);
+            if (isLoggedIn === 'true') {
+                showMainContent();
+            } else {
+                showLogin();
+            }
+        }
+
+        // Показать главный контент
+        function showMainContent() {
+            loginContainer.classList.add('hidden');
+            mainContent.classList.add('active');
+        }
+
+        // Показать форму входа
+        function showLogin() {
+            loginContainer.classList.remove('hidden');
+            mainContent.classList.remove('active');
+            passwordInput.focus();
+        }
+
+        // Обработка отправки формы входа
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = passwordInput.value.trim();
+
+            if (password === PASSWORD) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                errorMessage.classList.remove('show');
+                passwordInput.value = '';
+                showMainContent();
+            } else {
+                errorMessage.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+                
+                // Убрать сообщение об ошибке через 3 секунды
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 3000);
+            }
+        });
+
+        // Обработка выхода
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem(STORAGE_KEY);
+            showLogin();
+        });
+
+        // Инициализация при загрузке страницы
+        checkAuth();
+    </script>
+</body>
+</html>
