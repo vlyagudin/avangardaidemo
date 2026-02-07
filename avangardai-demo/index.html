@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AvangardAI Demo</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,8 +14,8 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 30%, #1e293b 70%, #0f172a 100%);
+            font-family: 'Golos Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
             min-height: 100vh;
             color: #1a1a1a;
         }
@@ -25,7 +27,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 30%, #1e293b 70%, #0f172a 100%);
+            background: #ffffff;
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -114,7 +116,7 @@
         }
 
         .login-btn {
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            background: #2563eb;
             color: white;
             padding: 16px 24px;
             border: none;
@@ -122,18 +124,16 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
             margin-top: 8px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
         .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+            background: #1d4ed8;
         }
 
         .login-btn:active {
-            transform: translateY(0);
+            background: #1e40af;
         }
 
         .error-message {
@@ -201,6 +201,22 @@
             gap: 20px;
         }
 
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-svg {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-image {
+            height: 40px;
+            width: auto;
+        }
+
         .header-title {
             font-size: 28px;
             font-weight: 700;
@@ -209,6 +225,25 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-title .logo-main {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-title .logo-demo {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 0.85em;
+            opacity: 0.8;
         }
 
         .header-credentials {
@@ -289,12 +324,6 @@
             .products-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
-            
-            /* 5th card spans full width on desktop */
-            .product-card:nth-child(5) {
-                grid-column: 1 / -1;
-                max-width: 100%;
-            }
         }
 
         /* CARD */
@@ -336,12 +365,21 @@
             transform: scaleX(1);
         }
 
+        /* Replace emoji with fixed SVG icons (no movement) */
         .card-icon {
-            font-size: 56px;
+            width: 64px;
+            height: 64px;
             margin-bottom: 24px;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             line-height: 1;
-            transition: transform 0.3s ease;
+        }
+
+        .card-icon svg {
+            width: 64px;
+            height: 64px;
+            display: block;
         }
 
         .card-title {
@@ -369,7 +407,7 @@
 
         .card-button {
             display: inline-block;
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            background: #2563eb;
             color: white;
             padding: 14px 24px;
             border-radius: 12px;
@@ -377,33 +415,28 @@
             font-size: 15px;
             font-weight: 600;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
             border: none;
             cursor: pointer;
             font-family: inherit;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
         }
 
         .card-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+            background: #1d4ed8;
         }
 
         .card-button:active {
-            transform: translateY(0);
+            background: #1e40af;
         }
 
         .card-button.secondary {
-            background: rgba(37, 99, 235, 0.08);
-            color: #2563eb;
-            border: 2px solid rgba(37, 99, 235, 0.2);
-            box-shadow: none;
+            background: #2563eb;
+            color: white;
+            border: none;
         }
 
         .card-button.secondary:hover {
-            background: rgba(37, 99, 235, 0.15);
-            border-color: #2563eb;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            background: #1d4ed8;
         }
 
         .credentials-small {
@@ -419,9 +452,8 @@
 
         /* FOOTER */
         footer {
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(20px);
-            color: #fff;
+            background: #000000;
+            color: #ffffff;
             padding: 50px 40px;
             text-align: center;
             margin-top: 80px;
@@ -436,36 +468,38 @@
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 24px;
-            color: #e2e8f0;
+            color: #ffffff;
         }
 
         .footer-contact {
             font-size: 15px;
             margin-bottom: 8px;
-            color: #cbd5e1;
+            color: #ffffff;
         }
 
         .footer-contact a {
-            color: #60a5fa;
+            color: #ffffff;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: opacity 0.3s ease;
             font-weight: 500;
         }
 
         .footer-contact a:hover {
-            color: #93c5fd;
+            opacity: 0.8;
             text-decoration: underline;
         }
 
         .footer-divider {
-            color: #475569;
+            color: #ffffff;
             margin: 0 12px;
+            opacity: 0.6;
         }
 
         .footer-copyright {
             font-size: 13px;
-            color: #64748b;
+            color: #ffffff;
             margin-top: 30px;
+            opacity: 0.8;
         }
 
         /* RESPONSIVE */
@@ -522,7 +556,13 @@
             }
 
             .card-icon {
-                font-size: 48px;
+                width: 56px;
+                height: 56px;
+            }
+
+            .card-icon svg {
+                width: 56px;
+                height: 56px;
             }
 
             footer {
@@ -558,7 +598,21 @@
     <!-- LOGIN PAGE -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
-            <h1>AvangardAI</h1>
+            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+                <svg width="1429" height="334" viewBox="0 0 1429 334" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 60px; width: auto;">
+                    <path d="M0.925781 0.333252H334.259V333.667H0.925781V0.333252Z" fill="black"/>
+                    <path d="M1411.14 107.37H1428.55V237H1411.14V107.37Z" fill="black"/>
+                    <path d="M1357.63 204.778H1302.82L1290.41 237H1272.26L1321.89 107.37H1339.3L1388.93 237H1370.04L1357.63 204.778ZM1308.56 189.593H1351.89L1330.23 129.593L1308.56 189.593Z" fill="black"/>
+                    <path d="M1205.55 238.852C1199.5 238.852 1193.95 237.802 1188.89 235.704C1183.95 233.605 1179.69 230.519 1176.11 226.444C1172.53 222.247 1169.75 217.062 1167.78 210.889C1165.8 204.593 1164.81 197.247 1164.81 188.852V185.148C1164.81 177.37 1165.8 170.519 1167.78 164.593C1169.88 158.543 1172.71 153.481 1176.29 149.407C1179.88 145.333 1184.13 142.247 1189.07 140.148C1194.13 138.049 1199.63 137 1205.55 137C1213.46 137 1220.31 138.728 1226.11 142.185C1232.04 145.642 1236.42 150.395 1239.26 156.444V107.37H1255.55V237H1240.37V218.481C1237.9 224.531 1233.58 229.469 1227.41 233.296C1221.23 237 1213.95 238.852 1205.55 238.852ZM1209.26 224.407C1213.7 224.407 1217.78 223.667 1221.48 222.185C1225.18 220.704 1228.33 218.667 1230.92 216.074C1233.52 213.481 1235.55 210.333 1237.04 206.63C1238.52 202.926 1239.26 198.852 1239.26 194.407V179.593C1239.26 175.642 1238.52 171.938 1237.04 168.481C1235.55 165.025 1233.52 162.062 1230.92 159.593C1228.33 157 1225.18 155.025 1221.48 153.667C1217.78 152.185 1213.7 151.444 1209.26 151.444C1205.31 151.444 1201.6 152.185 1198.15 153.667C1194.69 155.148 1191.67 157.37 1189.07 160.333C1186.6 163.173 1184.63 166.691 1183.15 170.889C1181.79 175.086 1181.11 179.84 1181.11 185.148V188.852C1181.11 194.654 1181.79 199.778 1183.15 204.222C1184.63 208.667 1186.6 212.37 1189.07 215.333C1191.67 218.296 1194.69 220.58 1198.15 222.185C1201.6 223.667 1205.31 224.407 1209.26 224.407Z" fill="black"/>
+                    <path d="M1102.8 138.852H1117.98V157.37C1120.08 151.568 1123.54 146.753 1128.35 142.926C1133.29 138.975 1139.28 137 1146.32 137C1148.79 137 1150.76 137.123 1152.24 137.37C1153.85 137.617 1155.27 137.926 1156.5 138.296V153.481C1154.9 152.864 1153.29 152.432 1151.69 152.185C1150.21 151.938 1148.11 151.815 1145.39 151.815C1141.69 151.815 1138.23 152.494 1135.02 153.852C1131.81 155.21 1129.03 157.123 1126.69 159.593C1124.34 161.938 1122.49 164.84 1121.13 168.296C1119.77 171.753 1119.09 175.519 1119.09 179.593V237H1102.8V138.852Z" fill="black"/>
+                    <path d="M1027.9 238.852C1022.47 238.852 1017.66 238.111 1013.46 236.63C1009.38 235.025 1005.93 232.864 1003.09 230.148C1000.25 227.432 998.088 224.222 996.607 220.519C995.126 216.815 994.385 212.741 994.385 208.296C994.385 198.543 997.224 191.506 1002.9 187.185C1008.71 182.864 1016.98 180.704 1027.72 180.704H1059.57V174.037C1059.57 165.642 1057.66 159.84 1053.83 156.63C1050.13 153.42 1044.51 151.815 1036.98 151.815C1029.94 151.815 1024.82 153.173 1021.61 155.889C1018.4 158.481 1016.61 161.444 1016.24 164.778H999.94C1000.19 160.827 1001.24 157.185 1003.09 153.852C1005.06 150.395 1007.66 147.432 1010.87 144.963C1014.2 142.494 1018.15 140.58 1022.72 139.222C1027.29 137.741 1032.35 137 1037.9 137C1049.51 137 1058.71 139.778 1065.5 145.333C1072.41 150.765 1075.87 159.716 1075.87 172.185V212C1075.87 217.185 1075.87 221.753 1075.87 225.704C1075.99 229.531 1076.3 233.296 1076.79 237H1062.53C1062.16 234.16 1061.92 231.506 1061.79 229.037C1061.67 226.444 1061.61 223.543 1061.61 220.333C1059.01 225.519 1054.82 229.901 1049.01 233.481C1043.21 237.062 1036.17 238.852 1027.9 238.852ZM1031.42 224.037C1035.25 224.037 1038.83 223.543 1042.16 222.556C1045.62 221.444 1048.64 219.901 1051.24 217.926C1053.83 215.827 1055.87 213.296 1057.35 210.333C1058.83 207.37 1059.57 203.914 1059.57 199.963V193.296H1030.5C1024.45 193.296 1019.69 194.531 1016.24 197C1012.78 199.346 1011.05 203.111 1011.05 208.296C1011.05 212.864 1012.66 216.63 1015.87 219.593C1019.2 222.556 1024.38 224.037 1031.42 224.037Z" fill="black"/>
+                    <path d="M926.749 275.889C919.589 275.889 913.478 275.148 908.416 273.667C903.354 272.309 899.157 270.395 895.823 267.926C892.613 265.457 890.144 262.494 888.416 259.037C886.687 255.704 885.576 252.062 885.083 248.111H902.12C902.737 250.086 903.601 251.877 904.712 253.481C905.823 255.086 907.305 256.444 909.157 257.556C911.009 258.667 913.354 259.531 916.194 260.148C919.157 260.765 922.675 261.074 926.749 261.074C936.749 261.074 944.095 258.667 948.786 253.852C953.478 249.037 955.823 242.185 955.823 233.296V217.556C952.984 224.099 948.601 228.975 942.675 232.185C936.873 235.395 930.021 237 922.12 237C916.07 237 910.515 235.951 905.453 233.852C900.515 231.753 896.255 228.667 892.675 224.593C889.095 220.519 886.317 215.457 884.342 209.407C882.367 203.235 881.379 196.074 881.379 187.926V184.222C881.379 176.691 882.367 170.025 884.342 164.222C886.441 158.296 889.28 153.358 892.86 149.407C896.441 145.333 900.7 142.247 905.638 140.148C910.7 138.049 916.194 137 922.12 137C930.515 137 937.799 138.914 943.971 142.741C950.144 146.444 954.465 151.321 956.934 157.37V138.852H972.12V233.296C972.12 246.63 968.231 257.062 960.453 264.593C952.675 272.123 941.441 275.889 926.749 275.889ZM925.823 222.556C930.268 222.556 934.342 221.877 938.046 220.519C941.749 219.037 944.897 217 947.49 214.407C950.083 211.815 952.12 208.728 953.601 205.148C955.083 201.568 955.823 197.679 955.823 193.481V178.667C955.823 174.963 955.083 171.444 953.601 168.111C952.12 164.778 950.083 161.877 947.49 159.407C944.897 156.938 941.749 155.025 938.046 153.667C934.342 152.185 930.268 151.444 925.823 151.444C921.873 151.444 918.169 152.185 914.712 153.667C911.255 155.148 908.231 157.309 905.638 160.148C903.169 162.988 901.194 166.444 899.712 170.519C898.354 174.469 897.675 179.037 897.675 184.222V187.926C897.675 193.481 898.354 198.42 899.712 202.741C901.194 207.062 903.169 210.704 905.638 213.667C908.231 216.63 911.255 218.852 914.712 220.333C918.169 221.815 921.873 222.556 925.823 222.556Z" fill="black"/>
+                    <path d="M775.779 138.852H790.964V157.37C792.076 154.654 793.619 152.062 795.594 149.593C797.569 147.123 799.915 144.963 802.631 143.111C805.471 141.259 808.68 139.778 812.261 138.667C815.964 137.556 820.039 137 824.483 137C836.829 137 845.964 140.333 851.89 147C857.94 153.543 860.964 163.173 860.964 175.889V237H844.668V179.593C844.668 170.457 842.755 163.543 838.927 158.852C835.1 154.16 828.681 151.815 819.668 151.815C814.853 151.815 810.656 152.617 807.076 154.222C803.619 155.827 800.779 157.926 798.557 160.519C796.335 163.111 794.668 166.074 793.557 169.407C792.569 172.741 792.076 176.136 792.076 179.593V237H775.779V138.852Z" fill="black"/>
+                    <path d="M700.885 238.852C695.453 238.852 690.638 238.111 686.44 236.63C682.366 235.025 678.909 232.864 676.07 230.148C673.23 227.432 671.07 224.222 669.588 220.519C668.107 216.815 667.366 212.741 667.366 208.296C667.366 198.543 670.206 191.506 675.885 187.185C681.687 182.864 689.959 180.704 700.7 180.704H732.551V174.037C732.551 165.642 730.638 159.84 726.811 156.63C723.107 153.42 717.49 151.815 709.959 151.815C702.922 151.815 697.798 153.173 694.588 155.889C691.379 158.481 689.588 161.444 689.218 164.778H672.922C673.169 160.827 674.218 157.185 676.07 153.852C678.045 150.395 680.638 147.432 683.848 144.963C687.181 142.494 691.132 140.58 695.7 139.222C700.267 137.741 705.329 137 710.885 137C722.49 137 731.687 139.778 738.477 145.333C745.391 150.765 748.848 159.716 748.848 172.185V212C748.848 217.185 748.848 221.753 748.848 225.704C748.971 229.531 749.28 233.296 749.774 237H735.514C735.144 234.16 734.897 231.506 734.774 229.037C734.65 226.444 734.588 223.543 734.588 220.333C731.996 225.519 727.798 229.901 721.996 233.481C716.193 237.062 709.156 238.852 700.885 238.852ZM704.403 224.037C708.23 224.037 711.811 223.543 715.144 222.556C718.601 221.444 721.625 219.901 724.218 217.926C726.811 215.827 728.848 213.296 730.329 210.333C731.811 207.37 732.551 203.914 732.551 199.963V193.296H703.477C697.428 193.296 692.675 194.531 689.218 197C685.761 199.346 684.033 203.111 684.033 208.296C684.033 212.864 685.638 216.63 688.848 219.593C692.181 222.556 697.366 224.037 704.403 224.037Z" fill="black"/>
+                    <path d="M565.645 138.852H583.793L615.645 220.333L644.533 138.852H661.941L624.904 237H606.385L565.645 138.852Z" fill="black"/>
+                    <path d="M539.839 204.778H485.024L472.617 237H454.469L504.098 107.37H521.506L571.135 237H552.247L539.839 204.778ZM490.765 189.593H534.098L512.432 129.593L490.765 189.593Z" fill="black"/>
+                </svg>
+            </div>
             <p>Введите пароль для доступа к демо</p>
             <form class="login-form" id="loginForm">
                 <div class="form-group">
@@ -576,7 +630,22 @@
         <!-- HEADER -->
         <header>
             <div class="header-content">
-                <h1 class="header-title">AvangardAI Demo</h1>
+                <div class="header-logo">
+                    <svg width="1429" height="334" viewBox="0 0 1429 334" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                        <path d="M0.925781 0.333252H334.259V333.667H0.925781V0.333252Z" fill="black"/>
+                        <path d="M1411.14 107.37H1428.55V237H1411.14V107.37Z" fill="black"/>
+                        <path d="M1357.63 204.778H1302.82L1290.41 237H1272.26L1321.89 107.37H1339.3L1388.93 237H1370.04L1357.63 204.778ZM1308.56 189.593H1351.89L1330.23 129.593L1308.56 189.593Z" fill="black"/>
+                        <path d="M1205.55 238.852C1199.5 238.852 1193.95 237.802 1188.89 235.704C1183.95 233.605 1179.69 230.519 1176.11 226.444C1172.53 222.247 1169.75 217.062 1167.78 210.889C1165.8 204.593 1164.81 197.247 1164.81 188.852V185.148C1164.81 177.37 1165.8 170.519 1167.78 164.593C1169.88 158.543 1172.71 153.481 1176.29 149.407C1179.88 145.333 1184.13 142.247 1189.07 140.148C1194.13 138.049 1199.63 137 1205.55 137C1213.46 137 1220.31 138.728 1226.11 142.185C1232.04 145.642 1236.42 150.395 1239.26 156.444V107.37H1255.55V237H1240.37V218.481C1237.9 224.531 1233.58 229.469 1227.41 233.296C1221.23 237 1213.95 238.852 1205.55 238.852ZM1209.26 224.407C1213.7 224.407 1217.78 223.667 1221.48 222.185C1225.18 220.704 1228.33 218.667 1230.92 216.074C1233.52 213.481 1235.55 210.333 1237.04 206.63C1238.52 202.926 1239.26 198.852 1239.26 194.407V179.593C1239.26 175.642 1238.52 171.938 1237.04 168.481C1235.55 165.025 1233.52 162.062 1230.92 159.593C1228.33 157 1225.18 155.025 1221.48 153.667C1217.78 152.185 1213.7 151.444 1209.26 151.444C1205.31 151.444 1201.6 152.185 1198.15 153.667C1194.69 155.148 1191.67 157.37 1189.07 160.333C1186.6 163.173 1184.63 166.691 1183.15 170.889C1181.79 175.086 1181.11 179.84 1181.11 185.148V188.852C1181.11 194.654 1181.79 199.778 1183.15 204.222C1184.63 208.667 1186.6 212.37 1189.07 215.333C1191.67 218.296 1194.69 220.58 1198.15 222.185C1201.6 223.667 1205.31 224.407 1209.26 224.407Z" fill="black"/>
+                        <path d="M1102.8 138.852H1117.98V157.37C1120.08 151.568 1123.54 146.753 1128.35 142.926C1133.29 138.975 1139.28 137 1146.32 137C1148.79 137 1150.76 137.123 1152.24 137.37C1153.85 137.617 1155.27 137.926 1156.5 138.296V153.481C1154.9 152.864 1153.29 152.432 1151.69 152.185C1150.21 151.938 1148.11 151.815 1145.39 151.815C1141.69 151.815 1138.23 152.494 1135.02 153.852C1131.81 155.21 1129.03 157.123 1126.69 159.593C1124.34 161.938 1122.49 164.84 1121.13 168.296C1119.77 171.753 1119.09 175.519 1119.09 179.593V237H1102.8V138.852Z" fill="black"/>
+                        <path d="M1027.9 238.852C1022.47 238.852 1017.66 238.111 1013.46 236.63C1009.38 235.025 1005.93 232.864 1003.09 230.148C1000.25 227.432 998.088 224.222 996.607 220.519C995.126 216.815 994.385 212.741 994.385 208.296C994.385 198.543 997.224 191.506 1002.9 187.185C1008.71 182.864 1016.98 180.704 1027.72 180.704H1059.57V174.037C1059.57 165.642 1057.66 159.84 1053.83 156.63C1050.13 153.42 1044.51 151.815 1036.98 151.815C1029.94 151.815 1024.82 153.173 1021.61 155.889C1018.4 158.481 1016.61 161.444 1016.24 164.778H999.94C1000.19 160.827 1001.24 157.185 1003.09 153.852C1005.06 150.395 1007.66 147.432 1010.87 144.963C1014.2 142.494 1018.15 140.58 1022.72 139.222C1027.29 137.741 1032.35 137 1037.9 137C1049.51 137 1058.71 139.778 1065.5 145.333C1072.41 150.765 1075.87 159.716 1075.87 172.185V212C1075.87 217.185 1075.87 221.753 1075.87 225.704C1075.99 229.531 1076.3 233.296 1076.79 237H1062.53C1062.16 234.16 1061.92 231.506 1061.79 229.037C1061.67 226.444 1061.61 223.543 1061.61 220.333C1059.01 225.519 1054.82 229.901 1049.01 233.481C1043.21 237.062 1036.17 238.852 1027.9 238.852ZM1031.42 224.037C1035.25 224.037 1038.83 223.543 1042.16 222.556C1045.62 221.444 1048.64 219.901 1051.24 217.926C1053.83 215.827 1055.87 213.296 1057.35 210.333C1058.83 207.37 1059.57 203.914 1059.57 199.963V193.296H1030.5C1024.45 193.296 1019.69 194.531 1016.24 197C1012.78 199.346 1011.05 203.111 1011.05 208.296C1011.05 212.864 1012.66 216.63 1015.87 219.593C1019.2 222.556 1024.38 224.037 1031.42 224.037Z" fill="black"/>
+                        <path d="M926.749 275.889C919.589 275.889 913.478 275.148 908.416 273.667C903.354 272.309 899.157 270.395 895.823 267.926C892.613 265.457 890.144 262.494 888.416 259.037C886.687 255.704 885.576 252.062 885.083 248.111H902.12C902.737 250.086 903.601 251.877 904.712 253.481C905.823 255.086 907.305 256.444 909.157 257.556C911.009 258.667 913.354 259.531 916.194 260.148C919.157 260.765 922.675 261.074 926.749 261.074C936.749 261.074 944.095 258.667 948.786 253.852C953.478 249.037 955.823 242.185 955.823 233.296V217.556C952.984 224.099 948.601 228.975 942.675 232.185C936.873 235.395 930.021 237 922.12 237C916.07 237 910.515 235.951 905.453 233.852C900.515 231.753 896.255 228.667 892.675 224.593C889.095 220.519 886.317 215.457 884.342 209.407C882.367 203.235 881.379 196.074 881.379 187.926V184.222C881.379 176.691 882.367 170.025 884.342 164.222C886.441 158.296 889.28 153.358 892.86 149.407C896.441 145.333 900.7 142.247 905.638 140.148C910.7 138.049 916.194 137 922.12 137C930.515 137 937.799 138.914 943.971 142.741C950.144 146.444 954.465 151.321 956.934 157.37V138.852H972.12V233.296C972.12 246.63 968.231 257.062 960.453 264.593C952.675 272.123 941.441 275.889 926.749 275.889ZM925.823 222.556C930.268 222.556 934.342 221.877 938.046 220.519C941.749 219.037 944.897 217 947.49 214.407C950.083 211.815 952.12 208.728 953.601 205.148C955.083 201.568 955.823 197.679 955.823 193.481V178.667C955.823 174.963 955.083 171.444 953.601 168.111C952.12 164.778 950.083 161.877 947.49 159.407C944.897 156.938 941.749 155.025 938.046 153.667C934.342 152.185 930.268 151.444 925.823 151.444C921.873 151.444 918.169 152.185 914.712 153.667C911.255 155.148 908.231 157.309 905.638 160.148C903.169 162.988 901.194 166.444 899.712 170.519C898.354 174.469 897.675 179.037 897.675 184.222V187.926C897.675 193.481 898.354 198.42 899.712 202.741C901.194 207.062 903.169 210.704 905.638 213.667C908.231 216.63 911.255 218.852 914.712 220.333C918.169 221.815 921.873 222.556 925.823 222.556Z" fill="black"/>
+                        <path d="M775.779 138.852H790.964V157.37C792.076 154.654 793.619 152.062 795.594 149.593C797.569 147.123 799.915 144.963 802.631 143.111C805.471 141.259 808.68 139.778 812.261 138.667C815.964 137.556 820.039 137 824.483 137C836.829 137 845.964 140.333 851.89 147C857.94 153.543 860.964 163.173 860.964 175.889V237H844.668V179.593C844.668 170.457 842.755 163.543 838.927 158.852C835.1 154.16 828.681 151.815 819.668 151.815C814.853 151.815 810.656 152.617 807.076 154.222C803.619 155.827 800.779 157.926 798.557 160.519C796.335 163.111 794.668 166.074 793.557 169.407C792.569 172.741 792.076 176.136 792.076 179.593V237H775.779V138.852Z" fill="black"/>
+                        <path d="M700.885 238.852C695.453 238.852 690.638 238.111 686.44 236.63C682.366 235.025 678.909 232.864 676.07 230.148C673.23 227.432 671.07 224.222 669.588 220.519C668.107 216.815 667.366 212.741 667.366 208.296C667.366 198.543 670.206 191.506 675.885 187.185C681.687 182.864 689.959 180.704 700.7 180.704H732.551V174.037C732.551 165.642 730.638 159.84 726.811 156.63C723.107 153.42 717.49 151.815 709.959 151.815C702.922 151.815 697.798 153.173 694.588 155.889C691.379 158.481 689.588 161.444 689.218 164.778H672.922C673.169 160.827 674.218 157.185 676.07 153.852C678.045 150.395 680.638 147.432 683.848 144.963C687.181 142.494 691.132 140.58 695.7 139.222C700.267 137.741 705.329 137 710.885 137C722.49 137 731.687 139.778 738.477 145.333C745.391 150.765 748.848 159.716 748.848 172.185V212C748.848 217.185 748.848 221.753 748.848 225.704C748.971 229.531 749.28 233.296 749.774 237H735.514C735.144 234.16 734.897 231.506 734.774 229.037C734.65 226.444 734.588 223.543 734.588 220.333C731.996 225.519 727.798 229.901 721.996 233.481C716.193 237.062 709.156 238.852 700.885 238.852ZM704.403 224.037C708.23 224.037 711.811 223.543 715.144 222.556C718.601 221.444 721.625 219.901 724.218 217.926C726.811 215.827 728.848 213.296 730.329 210.333C731.811 207.37 732.551 203.914 732.551 199.963V193.296H703.477C697.428 193.296 692.675 194.531 689.218 197C685.761 199.346 684.033 203.111 684.033 208.296C684.033 212.864 685.638 216.63 688.848 219.593C692.181 222.556 697.366 224.037 704.403 224.037Z" fill="black"/>
+                        <path d="M565.645 138.852H583.793L615.645 220.333L644.533 138.852H661.941L624.904 237H606.385L565.645 138.852Z" fill="black"/>
+                        <path d="M539.839 204.778H485.024L472.617 237H454.469L504.098 107.37H521.506L571.135 237H552.247L539.839 204.778ZM490.765 189.593H534.098L512.432 129.593L490.765 189.593Z" fill="black"/>
+                    </svg>
+                    <span class="logo-demo">Demo</span>
+                </div>
                 <div class="header-credentials">
                     <div class="credential-item">
                         Логин: <strong>demo@test.com</strong>
@@ -594,57 +663,160 @@
             <h2 class="section-title">Наши продукты</h2>
 
             <div class="products-grid">
-                <!-- CARD 1: AI Тренажер -->
+                <!-- CARD 1: AI Тренажер (иконка №2) -->
                 <div class="product-card">
-                    <span class="card-icon">🎯</span>
+                    <span class="card-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 82 82" fill="none">
+                            <rect x="0.5" y="0.5" width="81" height="81" rx="15.5" fill="white" />
+                            <rect x="20" y="20" width="43" height="43" fill="url(#pattern0_4001_5185)"/>
+                            <defs>
+                                <pattern id="pattern0_4001_5185" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                    <use xlink:href="#image0_4001_5185" transform="scale(0.0116279)"/>
+                                </pattern>
+                                <image id="image0_4001_5185" width="86" height="86" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+                            </defs>
+                        </svg>
+                    </span>
                     <h3 class="card-title">AI Тренажер</h3>
                     <p class="card-description">Платформа для тренировки и оценки навыков продаж с помощью ИИ-симуляций. Продавцы тренируются с ИИ-аватаром, который моделирует реальные сценарии звонков, переговоров и работы с возражениями.</p>
                     <div class="credentials-small">
                         Логин: demo@test.com | Пароль: demo123
                     </div>
                     <div class="card-buttons">
-                        <a href="https://aitrainer.avangardai.ru" target="_blank" class="card-button">Перейти на демо</a>
+                        <a href="https://aitrainer.avangardai.ru" target="_blank" rel="noopener noreferrer" class="card-button">Перейти на демо</a>
                     </div>
                 </div>
 
-                <!-- CARD 2: AI Асессор -->
+                <!-- CARD 2: AI Асессор (MostAI) (иконка из image_3.svg) -->
                 <div class="product-card">
-                    <span class="card-icon">📊</span>
+                    <span class="card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 82 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="43" height="43" transform="translate(20 20)" fill="white"/>
+                            <path opacity="0.4" d="M29.9735 31.749L22.25 39.5001L41.5587 60.4281L61.2536 39.5001L53.5301 31.749H29.9735Z" fill="url(#assessor_paint0)"/>
+                            <path d="M31.4273 22.5718L40.6046 32.3227L31.4273 42.0736L22.25 32.3227L31.4273 22.5718Z" fill="url(#assessor_paint1)"/>
+                            <path d="M31.3381 42.101C31.1969 42.382 27.533 38.1787 25.7188 36.042L30.0656 31.7385H39.8572L40.4719 32.4412C37.4861 35.5441 31.4793 41.8201 31.3381 42.101Z" fill="url(#assessor_paint2)"/>
+                            <defs>
+                                <linearGradient id="assessor_paint0" x1="61.2536" y1="60.4281" x2="33.8788" y2="23.1984" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#322FFA"/>
+                                    <stop offset="1" stop-color="#322FFA" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="assessor_paint1" x1="34.3984" y1="22.3795" x2="34.3984" y2="41.7314" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#0001FF"/>
+                                    <stop offset="1" stop-color="#0001FF" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="assessor_paint2" x1="35.4835" y1="31.6362" x2="35.4835" y2="46.6539" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#0001FF"/>
+                                    <stop offset="1" stop-color="#0001FF" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </span>
                     <h3 class="card-title">AI Асессор (MostAI)</h3>
-                    <p class="card-description">Платформа для оценки hard- и soft-компетенций менеджеров по продукту с помощью ИИ. Анализирует профессиональные и личные навыки, формирует отчёты с рекомендациями и зонами для развития.</p>
+                    <p class="card-description">Платформа для оценки hard- и soft-компетенций менеджеров по продукту с помощью ИИ. Анализирует профессиональные и личные навыки, формирует отчёты с рекомендациями.</p>
                     <div class="card-buttons">
-                        <a href="https://demo-analytics.avangardai.ru" target="_blank" class="card-button">Перейти на демо</a>
+                        <a href="https://demo-analytics.avangardai.ru" target="_blank" rel="noopener noreferrer" class="card-button">Перейти на демо</a>
                     </div>
                 </div>
 
-                <!-- CARD 3: AI Аналитик -->
+                <!-- CARD 3: AI Аналитик (иконка №3) -->
                 <div class="product-card">
-                    <span class="card-icon">💬</span>
+                    <span class="card-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 82 82" fill="none">
+                            <rect x="0.5" y="0.5" width="81" height="81" rx="15.5" fill="white"/>
+                            <rect width="43" height="43" transform="translate(20 20)" fill="white"/>
+                            <ellipse opacity="0.4" cx="41.5002" cy="53.2142" rx="20.0119" ry="8.78571" fill="url(#paint0_linear_4001_5223)"/>
+                            <ellipse opacity="0.4" cx="41.5002" cy="41.5001" rx="20.0119" ry="8.78571" fill="url(#paint1_linear_4001_5223)"/>
+                            <ellipse cx="41.5002" cy="29.7857" rx="20.0119" ry="8.78571" fill="url(#paint2_linear_4001_5223)"/>
+                            <defs>
+                                <linearGradient id="paint0_linear_4001_5223" x1="61.5121" y1="61.9999" x2="48.5767" y2="32.536" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#322FFA"/>
+                                    <stop offset="1" stop-color="#322FFA" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="paint1_linear_4001_5223" x1="21.4883" y1="41.5001" x2="61.5121" y2="41.5001" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#0001FF"/>
+                                    <stop offset="1" stop-color="#0001FF" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="paint2_linear_4001_5223" x1="47.979" y1="20.8267" x2="47.979" y2="46.2589" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#0001FF"/>
+                                    <stop offset="1" stop-color="#393AFF"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </span>
                     <h3 class="card-title">AI Аналитик</h3>
                     <p class="card-description">Персональный ChatGPT по любым вопросам коммерческого департамента</p>
                     <div class="card-buttons">
-                        <a href="https://demo-analytics.avangardai.ru/reports/generate" target="_blank" class="card-button">Перейти на демо</a>
+                        <a href="https://demo-analytics.avangardai.ru/reports/generate" target="_blank" rel="noopener noreferrer" class="card-button">Перейти на демо</a>
                     </div>
                 </div>
 
-                <!-- CARD 4: AI Суфлер -->
+                <!-- CARD 4: AI Суфлер (иконка №4) -->
                 <div class="product-card">
-                    <span class="card-icon">🎧</span>
+                    <span class="card-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 82 82" fill="none">
+                            <rect x="0.5" y="0.5" width="81" height="81" rx="15.5" fill="white"/>
+                            <rect width="43" height="43" transform="translate(20 20)" fill="white"/>
+                            <path d="M23 35C23 28.3726 28.3726 23 35 23C41.6274 23 47 28.3726 47 35V47H35C28.3726 47 23 41.6274 23 35Z" fill="url(#paint0_linear_4001_5245)"/>
+                            <path d="M61 49C61 55.6274 55.6274 61 49 61C42.3726 61 37 55.6274 37 49V37H49C55.6274 37 61 42.3726 61 49Z" fill="url(#paint1_linear_4001_5245)"/>
+                            <rect x="37" y="37" width="10" height="10" fill="url(#paint2_linear_4001_5245)"/>
+                            <defs>
+                                <linearGradient id="paint0_linear_4001_5245" x1="21.2857" y1="11.5714" x2="54.8113" y2="32.9737" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#322FFA"/>
+                                    <stop offset="1" stop-color="#322FFA" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="paint1_linear_4001_5245" x1="55.8571" y1="61.5714" x2="35.0748" y2="47.4091" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#322FFA"/>
+                                    <stop offset="1" stop-color="#322FFA" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="paint2_linear_4001_5245" x1="43.6187" y1="36.9014" x2="43.6187" y2="51.375" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#0001FF"/>
+                                    <stop offset="1" stop-color="#0001FF" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </span>
                     <h3 class="card-title">AI Суфлер</h3>
                     <p class="card-description">Виджет, анализирующий опыт прошлых звонков, интонацию и слова клиента и дающий релевантные подсказки во время звонка менеджера с клиентом</p>
                     <div class="card-buttons">
-                        <a href="https://drive.google.com/file/d/1SopTmm4WZizRdBSGtN6cSg4H5KCx8rfF/view?usp=sharing" target="_blank" class="card-button">Смотреть обзор</a>
+                        <a href="https://drive.google.com/file/d/1SopTmm4WZizRdBSGtN6cSg4H5KCx8rfF/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card-button">Смотреть обзор</a>
                     </div>
                 </div>
 
-                <!-- CARD 5: Автоматизация -->
+                <!-- CARD 5: Автоматизация входящих/исходящих звонков (иконка №5) -->
                 <div class="product-card">
-                    <span class="card-icon">📞</span>
+                    <span class="card-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 82 82" fill="none">
+                            <rect x="0.5" y="0.5" width="81" height="81" rx="15.5" fill="white" />
+                            <rect width="43" height="43" transform="translate(20 20)" fill="white"/>
+                            <path opacity="0.4" d="M23.3555 23.0229V51.406L31.2633 45.6645H53.3632V23.0229H23.3555Z" fill="url(#paint0_linear_4001_5163)"/>
+                            <path d="M36.3594 37.6064L32.3594 33.7848L33.7694 32.4377L36.3594 34.9026L42.9494 28.6064L44.3594 29.9631L36.3594 37.6064Z" fill="url(#paint1_linear_4001_5163)"/>
+                            <path opacity="0.4" d="M60.6211 41.0303V59.6783L55.4255 55.906H40.9056V41.0303H60.6211Z" fill="url(#paint2_linear_4001_5163)"/>
+                            <rect x="40.9844" y="41.0552" width="12.377" height="4.60742" fill="url(#paint3_linear_4001_5163)"/>
+                            <defs>
+                                <linearGradient id="paint0_linear_4001_5163" x1="53.3632" y1="51.406" x2="25.0241" y2="21.4447" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#322FFA"/>
+                                    <stop offset="1" stop-color="#322FFA" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="paint1_linear_4001_5163" x1="40.3019" y1="28.5177" x2="40.3019" y2="37.4485" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#0001FF"/>
+                                    <stop offset="1" stop-color="#0001FF" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="paint2_linear_4001_5163" x1="40.9056" y1="59.6783" x2="59.5248" y2="39.9933" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#322FFA"/>
+                                    <stop offset="1" stop-color="#322FFA" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="paint3_linear_4001_5163" x1="49.1763" y1="41.0097" x2="49.1763" y2="45.5818" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#0001FF"/>
+                                    <stop offset="1" stop-color="#0001FF" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </span>
                     <h3 class="card-title">Автоматизация входящих/исходящих звонков</h3>
                     <p class="card-description">Автоматизация обзвонов входящей и исходящей линий с интеграцией в CRM</p>
                     <div class="card-buttons">
-                        <a href="https://drive.google.com/file/d/1JUKQqakoHJnl6O2DkqCnHd265yaKLYTf/view?usp=drive_link" target="_blank" class="card-button">Обзор №1</a>
-                        <a href="https://drive.google.com/file/d/1F8S4SaQ_bzSYM82OTJGuBxS6KnpXE7iN/view?usp=drive_link" target="_blank" class="card-button secondary">Обзор №2</a>
+                        <a href="https://drive.google.com/file/d/1JUKQqakoHJnl6O2DkqCnHd265yaKLYTf/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="card-button">Обзор №1</a>
+                        <a href="https://drive.google.com/file/d/1F8S4SaQ_bzSYM82OTJGuBxS6KnpXE7iN/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="card-button secondary">Обзор №2</a>
                     </div>
                 </div>
             </div>
@@ -657,9 +829,9 @@
                 <div class="footer-contact">
                     Email: <a href="mailto:info@avangardai.ru">info@avangardai.ru</a>
                     <span class="footer-divider">|</span>
-                    Сайт: <a href="https://avangardai.ru" target="_blank">avangardai.ru</a>
+                    Сайт: <a href="https://avangardai.ru" target="_blank" rel="noopener noreferrer">avangardai.ru</a>
                 </div>
-                <p class="footer-copyright">© 2025 AvangardAI. Все права защищены.</p>
+                <p class="footer-copyright">© 2026 AvangardAI. Все права защищены.</p>
             </div>
         </footer>
     </div>
@@ -667,7 +839,7 @@
     <script>
         const PASSWORD = 'demo123';
         const STORAGE_KEY = 'avangardai_logged_in';
-        
+
         const loginContainer = document.getElementById('loginContainer');
         const mainContent = document.getElementById('mainContent');
         const loginForm = document.getElementById('loginForm');
@@ -712,7 +884,7 @@
                 errorMessage.classList.add('show');
                 passwordInput.value = '';
                 passwordInput.focus();
-                
+
                 // Убрать сообщение об ошибке через 3 секунды
                 setTimeout(() => {
                     errorMessage.classList.remove('show');
@@ -731,3 +903,4 @@
     </script>
 </body>
 </html>
+
